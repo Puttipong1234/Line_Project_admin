@@ -8,11 +8,7 @@ import subprocess
 import requests
 from linebot.models import *
 from linebot.models.template import *
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-
-from routes import line_bot_api , LineBotApi
+from Project import line_bot_api,parser
 
 def create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,ActionList):
     rich_menu = RichMenu()
