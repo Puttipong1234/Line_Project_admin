@@ -8,7 +8,7 @@ import subprocess
 import requests
 from linebot.models import *
 from linebot.models.template import *
-from Project import line_bot_api,parser
+from Project import line_bot_api
 
 def create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,ActionList):
     rich_menu = RichMenu()
@@ -89,19 +89,18 @@ def create_submenu():
 
 
 menuList = {}
-menuList['back'] = 'richmenu-7c7946aded99dab8c2ab94986b6a0c1d'
 menuList['Project Info'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
 menuList['Drawing'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
 menuList['Payment'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
 menuList['approval'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
 menuList['material'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
 menuList['admin zone'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
+menuList['back'] = 'richmenu-7c7946aded99dab8c2ab94986b6a0c1d'
 
 
 
 def postmenu(menuName,userId='xxx'):
     menuId = menuList[menuName]
+    print(menuId)
     line_bot_api.link_rich_menu_to_user(userId,menuId)
-    return 'done'
-
-    
+    return print('done')

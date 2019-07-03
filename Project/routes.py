@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-
+import json
 import os
 import sys
 from argparse import ArgumentParser
@@ -10,15 +10,32 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, FileMessage , ImageMessage , FollowEvent ,sources
+    MessageEvent, TextMessage, TextSendMessage, FileMessage , ImageMessage , FollowEvent ,sources,JoinEvent
 )
-
-from Project.RichMenu import postmenu 
 
 
 from Project import app
 
 from Project import line_bot_api,parser
+
+menuList = {}
+menuList['Project Info'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
+menuList['Drawing'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
+menuList['Payment'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
+menuList['approval'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
+menuList['material'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
+menuList['admin zone'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
+menuList['back'] = 'richmenu-7c7946aded99dab8c2ab94986b6a0c1d'
+
+
+
+def postmenu(menuName,userId='xxx'):
+    menuId = menuList[menuName]
+    print(menuId)
+    line_bot_api.link_rich_menu_to_user(userId,menuId)
+    return print('done')
+
+
 
 
 @app.route("/", methods=['POST'])
@@ -33,23 +50,27 @@ def callback():
     # handle webhook body
     try:
         events = parser.parse(body, signature)
-        print(events)
+
     except InvalidSignatureError:
         print("Invalid signature. Please check your channel access token/channel secret.")
         abort(400)
 
-    return 'OK'
 
 ################### cannot read event ################
+
     for event in events:
-        print(event)
-        print(event.source)
-        user_id = event.source['user']
-        print(user_id)
+        user_id= event.source.sender_id
+
         menuname = event.message.text
         print(menuname)
-        postmenu(user_id,menuname)
+        if not isinstance(event, MessageEvent):
+            postmenu(menuname,user_id)
 
+
+        if not isinstance(event, JoinEvent):
+            line_bot_api.link_rich_menu_to_user(user_id,'richmenu-7c7946aded99dab8c2ab94986b6a0c1d')
+
+    
 
     return 'OK'
 
