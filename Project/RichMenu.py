@@ -71,31 +71,42 @@ def create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,ActionList):
 def create_mainmenu():
     name = 'เมนูหลัก'
     chatbar = 'กรุณาเลือกคำสั่ง'
-    image = 'Project\static\\richimg\menu.JPG'
-    nrow = 3
+    image = 'Project\static\\richimg\mainmenu.JPG'
+    nrow = 2
     ncol = 3
-    actionlist = ['Project Info','Drawing','Payment','approval','material','admin zone']
+    actionlist = ['project info','drawing','Today report','project staff','material and spec','admin zone']
     return create_richmenu_generic(name,chatbar,image,nrow,ncol,actionlist)
 
 def create_submenu():
     name = 'จัดการข้อมูล'
     chatbar = 'กรุณาเลือกคำสั่ง'
-    image = 'Project\static\\richimg\\action.JPG'
+    image = 'Project\static\\richimg\customize.JPG'
     nrow = 2
-    ncol = 2
-    actionlist = ['Upload','Forward','Search','back']
+    ncol = 3
+    actionlist = ['upload','upload','forward','search','search','back']
+    return create_richmenu_generic(name,chatbar,image,nrow,ncol,actionlist)
+
+def create_adminmenu():
+    name = 'จัดการข้อมูล'
+    chatbar = 'กรุณาเลือกคำสั่ง'
+    image = 'Project\static\\richimg\\admin.JPG'
+    nrow = 2
+    ncol = 3
+    actionlist = ['project status','assignment','payment','approval','staff','back']
     return create_richmenu_generic(name,chatbar,image,nrow,ncol,actionlist)
 
 
 
 menuList = {}
-menuList['Project Info'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['Drawing'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['Payment'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['approval'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['material'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['admin zone'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['back'] = 'richmenu-7c7946aded99dab8c2ab94986b6a0c1d'
+#customizemenu
+menuList['back'] = 'richmenu-71739111c87ec892bb23f543d8426b9c'
+#direct to admin zone
+menuList['admin zone'] = 'richmenu-96864ee993c3eaa220019309a2eed060'
+#mainmenu
+menuList['drawing'] = 'richmenu-20f4348a39b9d003f082a461d859a019'
+menuList['payment'] = 'richmenu-20f4348a39b9d003f082a461d859a019'
+menuList['material and spec'] = 'richmenu-20f4348a39b9d003f082a461d859a019'
+
 
 
 
