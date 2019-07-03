@@ -44,13 +44,13 @@ def callback():
 
     for event in events:
         user_id= event.source.sender_id
-        line_bot_api.link_rich_menu_to_user(user_id,'richmenu-7c7946aded99dab8c2ab94986b6a0c1d')
         if isinstance(event, MessageEvent):
             menuname = event.message.text
             postmenu(menuname,user_id)
 
         if isinstance(event, FollowEvent):
-            line_bot_api.link_rich_menu_to_user(user_id,'richmenu-7c7946aded99dab8c2ab94986b6a0c1d')
+            menuname = 'back'
+            postmenu(menuname,user_id)
 
     
 
