@@ -10,7 +10,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, FileMessage , ImageMessage , FollowEvent ,sources,JoinEvent
+    MessageEvent, TextMessage, TextSendMessage, FileMessage , ImageMessage , FollowEvent ,sources,FollowEvent
 )
 
 
@@ -18,23 +18,7 @@ from Project import app
 
 from Project import line_bot_api,parser
 
-menuList = {}
-menuList['Project Info'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['Drawing'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['Payment'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['approval'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['material'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['admin zone'] = 'richmenu-f38c34eb1c8f90efa86d0c46083e014b'
-menuList['back'] = 'richmenu-7c7946aded99dab8c2ab94986b6a0c1d'
-
-
-
-def postmenu(menuName,userId='xxx'):
-    menuId = menuList[menuName]
-    print(menuId)
-    line_bot_api.link_rich_menu_to_user(userId,menuId)
-    return print('done')
-
+from Project.RichMenu import menuList,postmenu
 
 
 
@@ -60,14 +44,12 @@ def callback():
 
     for event in events:
         user_id= event.source.sender_id
-
-        menuname = event.message.text
-        print(menuname)
-        if not isinstance(event, MessageEvent):
+        line_bot_api.link_rich_menu_to_user(user_id,'richmenu-7c7946aded99dab8c2ab94986b6a0c1d')
+        if isinstance(event, MessageEvent):
+            menuname = event.message.text
             postmenu(menuname,user_id)
 
-
-        if not isinstance(event, JoinEvent):
+        if isinstance(event, FollowEvent):
             line_bot_api.link_rich_menu_to_user(user_id,'richmenu-7c7946aded99dab8c2ab94986b6a0c1d')
 
     
