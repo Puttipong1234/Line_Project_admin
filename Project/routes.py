@@ -4,7 +4,7 @@ import os
 import sys
 from argparse import ArgumentParser
 
-from flask import Flask, request, abort
+from flask import Flask, request, abort, send_from_directory
 
 from linebot.exceptions import (
     InvalidSignatureError
@@ -19,11 +19,11 @@ from Project import app
 from Project import line_bot_api,parser
 from Project.RichMenu import menuList,postmenu
 
-### flex content ####
+### flex content sender ####
 from Project.UI.drawing import send_flex,drawing_data
 
 
-
+## main event for line chatbot ##
 @app.route("/", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
@@ -41,9 +41,6 @@ def callback():
         print("Invalid signature. Please check your channel access token/channel secret.")
         abort(400)
 
-
-################### cannot read event ################
-
     for event in events:
         user_id= event.source.sender_id
         if isinstance(event, MessageEvent):
@@ -58,10 +55,41 @@ def callback():
             menuname = 'back'
             postmenu(menuname,user_id)
 
-
-
-    
-
     return 'OK'
 
 
+## Send file from data base to user ##
+## drawing
+@app.route("/get-drawing/<drawing_name>")
+def get_drawing(drawing_name):
+    try :
+        return send_from_directory(app.config["drawing_dir"], filename=drawing_name, as_attachment=True)
+    except :
+        return InvalidSignatureError('Error cannot get file from directory')
+
+
+## payment
+@app.route("/get-payment/<payment_name>")
+def get_payment(payment_name):
+    try :
+        return send_from_directory(app.config["payment_dir"], filename=payment_name, as_attachment=True)
+    except :
+        return InvalidSignatureError('Error cannot get file from directory')
+
+
+## material
+@app.route("/get-material/<material_name>")
+def get_material(material_name):
+    try :
+        return send_from_directory(app.config["material_dir"], filename=material_name, as_attachment=True)
+    except :
+        return InvalidSignatureError('Error cannot get file from directory')
+
+
+## approval
+@app.route("/get-approval/<approval_name>")
+def get_approval(approval_name):
+    try :
+        return send_from_directory(app.config["approval_dir"], filename=approval_name, as_attachment=True)
+    except :
+        return InvalidSignatureError('Error cannot get file from directory')
