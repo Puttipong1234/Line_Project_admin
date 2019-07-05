@@ -10,15 +10,16 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage, FileMessage , ImageMessage , FollowEvent ,sources,FollowEvent
+    MessageEvent, TextMessage, TextSendMessage, FileMessage , ImageMessage , FollowEvent ,sources,FollowEvent,FlexSendMessage
 )
 
 
 from Project import app
-
 from Project import line_bot_api,parser
-
 from Project.RichMenu import menuList,postmenu
+
+### flex content ####
+from Project.UI.drawing import drawing_data
 
 
 
@@ -47,10 +48,14 @@ def callback():
         if isinstance(event, MessageEvent):
             menuname = event.message.text
             postmenu(menuname,user_id)
+            if menuname == 'drawing':
+                line_bot_api.reply_message(event.reply_token,drawing_data)
 
         if isinstance(event, FollowEvent):
             menuname = 'back'
             postmenu(menuname,user_id)
+
+
 
     
 
