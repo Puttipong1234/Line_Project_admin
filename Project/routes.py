@@ -20,7 +20,7 @@ from Project import line_bot_api,parser
 from Project.RichMenu import menuList,postmenu
 
 ### flex content sender ####
-from Project.UI.drawing import send_flex,drawing_data
+from Project.UI.Menu import send_flex,drawing_data
 
 
 ## main event for line chatbot ##
@@ -45,15 +45,16 @@ def callback():
         user_id= event.source.sender_id
         if isinstance(event, MessageEvent):
             menuname = event.message.text
-            print(event.reply_token)
-            if menuname == 'drawing':
-                send_flex(event.reply_token,drawing_data)
             postmenu(menuname,user_id)
                 
 
         if isinstance(event, FollowEvent):
             menuname = 'back'
             postmenu(menuname,user_id)
+
+        if isinstance(event, MessageEvent) and FileMessage is type(event.message):
+            
+            
 
     return 'OK'
 
@@ -93,3 +94,7 @@ def get_approval(approval_name):
         return send_from_directory(app.config["approval_dir"], filename=approval_name, as_attachment=True)
     except :
         return InvalidSignatureError('Error cannot get file from directory')
+
+
+
+
