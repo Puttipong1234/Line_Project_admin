@@ -70,8 +70,8 @@ def create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,ActionList):
 
 def create_mainmenu():
     name = 'เมนูหลัก'
-    chatbar = 'กรุณาเลือกคำสั่ง'
-    image = 'Project\static\\richimg\mainmenu.JPG'
+    chatbar = 'เมนูหลัก'
+    image = 'Project\static\งานนำเสนอ1\Slide1.JPG'
     nrow = 2
     ncol = 3
     actionlist = ['project info','drawing','Today report','project staff','material and spec','admin zone']
@@ -79,20 +79,20 @@ def create_mainmenu():
 
 def create_adminmenu():
     name = 'จัดการข้อมูล'
-    chatbar = 'กรุณาเลือกคำสั่ง'
-    image = 'Project\static\\richimg\\admin.JPG'
+    chatbar = 'เมนูผู้บริหาร'
+    image = 'Project\static\งานนำเสนอ1\Slide2.JPG'
     nrow = 2
     ncol = 3
-    actionlist = ['project status','assignment','payment','approval','staff','back']
+    actionlist = ['project status','assignment','payment','approval','quotation','back']
     return create_richmenu_generic(name,chatbar,image,nrow,ncol,actionlist)
 
 
 
 menuList = {}
 #back to menu
-menuList['back'] = 'richmenu-71739111c87ec892bb23f543d8426b9c'
+menuList['back'] = 'richmenu-f588b5a8c4720da890e5495d826b4ceb'
 #direct to admin zone
-menuList['admin zone'] = 'richmenu-96864ee993c3eaa220019309a2eed060'
+menuList['admin zone'] = 'richmenu-2c62f475b8e42c95e6721e951de677ba'
 
 
 def postmenu(menuName,userId='xxx'):
@@ -100,3 +100,7 @@ def postmenu(menuName,userId='xxx'):
     print(menuId)
     line_bot_api.link_rich_menu_to_user(userId,menuId)
     return print('done')
+
+
+
+    

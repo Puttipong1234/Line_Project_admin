@@ -31,11 +31,11 @@ app.config['approval'] = 'Project\static\Project\{}\\approval'.format(current_pr
 line_bot_api = LineBotApi('1RfIiAbjneORMpj+sIGYx+Yi0esjdG/F/VQxyIc6/dFoCVym6hZzDrBqxpd5Ui8XFLsdzohfRuvZRU1dsCP0yaSN3Rdx7U3PeT/0kZfnkrAXrmtrclZaw0v/tA6vOe2fM93R+JvDab5xhxN/4vtGYQdB04t89/1O/w1cDnyilFU=')
 parser = WebhookParser('31d9c964d1afd080749b16d09f2f016c')
 
-from Project import routes
 
 if __name__ == '__main__':
-    if os.path.isfile('{}.sqlite'.format(current_project)):
+    try:
         db.create_all()
-    else :
+    except:
         pass
     
+from Project import routes

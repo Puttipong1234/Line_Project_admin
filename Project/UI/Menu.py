@@ -24,7 +24,7 @@ def send_flex(reply_token,drawing_data):
   'Authorization': Authorization}
 
     drawing_data['replyToken'] = reply_token
-    #### dumps file ให้เป็น
+    #### dumps file จาก dict ให้เป็น json
     drawing_data = json.dumps(drawing_data)
 
     r = requests.post(LINE_API, headers=headers, data=drawing_data) # ส่งข้อมูล

@@ -52,11 +52,10 @@ def callback():
             menuname = 'back'
             postmenu(menuname,user_id)
 
+#### กรณีเจอ message ประเภทไฟล์
         if isinstance(event, MessageEvent) and FileMessage is type(event.message):
-            
-            
-
-    return 'OK'
+            pass
+        return 'OK'
 
 
 ## Send file from data base to user ##

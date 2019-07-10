@@ -1,4 +1,6 @@
 from Project.RichMenu import *
 
-print(create_mainmenu())
-print(create_adminmenu())
+if __name__ == '__main__':
+    print(create_mainmenu())
+    print(create_adminmenu())
+    
