@@ -38,7 +38,7 @@ class Project_Gdrive():
 
         ### check if database create correctly
         self.SetUp_Gdrive_Directory()
-
+        self.Save_Json_Config()
 
     ### use inside Setup_Gdrive method
                 
@@ -62,6 +62,8 @@ class Project_Gdrive():
         return file1['title'],file1['alternateLink'],file1['id']
     ### return data to store on Database or Line_FlexMessage
 
+
+    # upload from line with permission link
     def upload_file_with_permission(self,folder_name,filetype,filename):
         Subfolder = Submenu.query.filter_by(name = folder_name).first()
         Subfolder_id = Subfolder.file_id
@@ -101,7 +103,7 @@ class Project_Gdrive():
     ### return as json ready to convert into Flex Message List
     
     def Save_Json_Config(self):
-        with open('Gdrive_Config.json','w') as Config:
+        with open(self.data_path,'w') as Config:
             json.dump(self.data,Config,indent=3)
             Config.close()
     #### save json config as a database
@@ -171,7 +173,7 @@ class Project_Gdrive():
         else:
             print('directory was already Create')
 
-        self.Save_Json_Config()
+    
 
 # if __name__ == '__main__':
     

@@ -27,8 +27,8 @@ def SetMessage_From_Database(folder_name):
         num = num + 1
         files.append(each_file_in_list(str(num),_file['title'],_file['alternateLink']))
         print(num,_file['title'],_file['alternateLink'])
-      
-      result = each_Column_in_carousel(folder_name,files)
+      #### foldername or column name col['alternateLink']
+      result = each_Column_in_carousel(folder_name,col['alternateLink'],files)
       Columns.append(result)
     Carousel_message = Carousel_menu(Columns)
     message = SetMenuMessage_Object(files,Carousel_message)

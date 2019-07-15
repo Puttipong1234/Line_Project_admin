@@ -1,4 +1,5 @@
 from Project import app
+from Project import Project_Gdrive
 # from Project.RichMenu import *
 if __name__ == '__main__':
 
@@ -6,7 +7,13 @@ if __name__ == '__main__':
     # print(create_submenu())
     # print(create_adminmenu())
 
+    ###SETUP DIRECTORY
+
+    Project_Gdrive('DISENO001')
+
+
     app.run(port = 80)
+    
 
     
 

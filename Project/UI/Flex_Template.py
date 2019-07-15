@@ -24,7 +24,7 @@ def each_file_in_list(number,file_name,url):
     return template
 
 ## create Column by name and its content
-def each_Column_in_carousel(column_name,content): ## ชื่อของเมนู กับ content คือ list ของeach file in list
+def each_Column_in_carousel(column_name,folder_link,content): ## ชื่อของเมนู กับ content คือ list ของeach file in list
     template = {
         "type": "bubble",
         "direction": "ltr",
@@ -84,9 +84,9 @@ def each_Column_in_carousel(column_name,content): ## ชื่อของเม
             {
             "type": "button",
             "action": {
-                "type": "message",
+                "type": "uri",
                 "label": "UPLOAD",
-                "text": "UPLOAD"
+                "text": folder_link
             },
             "flex": 5,
             "style": "primary"
@@ -94,9 +94,9 @@ def each_Column_in_carousel(column_name,content): ## ชื่อของเม
             {
             "type": "button",
             "action": {
-                "type": "message",
+                "type": "uri",
                 "label": "DEL",
-                "text": "DEL"
+                "text": folder_link
             },
             "flex": 0,
             "color": "#FF0000",
