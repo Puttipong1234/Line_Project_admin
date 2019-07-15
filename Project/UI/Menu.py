@@ -1,32 +1,58 @@
-drawing_data = {"replyToken":'', "messages": []}
+file_data = {"replyToken":'', "messages": []}
 
 
 import json
 import requests
-from Project.UI.Flex_Template import each_drawing_in_list , each_Column_in_carousel , Carousel_menu
+from Project.UI.Flex_Template import each_file_in_list , each_Column_in_carousel , Carousel_menu
 from Project import app
 import os
+from Project import db , bot_access_key
+from Project.GDRIVE_API.models import *
+from Project.GDRIVE_API.google_drive_api import Project_Gdrive
 
 
-def update_Carousel_menu(drawing_data,Carousel_data):
-    drawing_data['message'].append(Carousel_data)
-    return drawing_data
+def SetMenuMessage_Object(file_data,Message_data):
+    file_data['message'].append(Message_data)
+    return file_data
+
+def SetMessage_From_Database(folder_name):
+    _menus = Menu.query.filter_by(name = folder_name).first()
+    _submenus = Submenu.query.filter_by(menu = _menus).all()
+    project = Project_Gdrive()
+    all_file = project.GetFile_FromFolderName(folder_name)
+    Columns = []
+    files = []
+    for col in _submenus:
+      for num,_file in enumerate(all_file):
+        num = num + 1
+        files.append(each_file_in_list(str(num),_file['title'],_file['alternateLink']))
+        print(num,_file['title'],_file['alternateLink'])
+      
+      result = each_Column_in_carousel(folder_name,files)
+      Columns.append(result)
+    Carousel_message = Carousel_menu(Columns)
+    message = SetMenuMessage_Object(files,Carousel_message)
+    return message
+    ### return message_carousel_data to send flex
+
+
+
 
 
 ### send_flex message with list of content inside
-def send_flex(reply_token,drawing_data):
+def send_flex(reply_token,file_data):
 
     LINE_API = 'https://api.line.me/v2/bot/message/reply'
 
-    Authorization = 'Bearer 1RfIiAbjneORMpj+sIGYx+Yi0esjdG/F/VQxyIc6/dFoCVym6hZzDrBqxpd5Ui8XFLsdzohfRuvZRU1dsCP0yaSN3Rdx7U3PeT/0kZfnkrAXrmtrclZaw0v/tA6vOe2fM93R+JvDab5xhxN/4vtGYQdB04t89/1O/w1cDnyilFU='
+    Authorization = 'Bearer {}'.format(bot_access_key)
 
     headers = {'Content-Type': 'application/json; charset=UTF-8',
   'Authorization': Authorization}
 
-    drawing_data['replyToken'] = reply_token
+    file_data['replyToken'] = reply_token
     #### dumps file จาก dict ให้เป็น json
-    drawing_data = json.dumps(drawing_data)
+    file_data = json.dumps(file_data)
 
-    r = requests.post(LINE_API, headers=headers, data=drawing_data) # ส่งข้อมูล
+    r = requests.post(LINE_API, headers=headers, data=file_data) # ส่งข้อมูล
 
     return print(r.text)

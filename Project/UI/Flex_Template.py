@@ -1,7 +1,5 @@
-from Project import db 
-from Project.models import File , Menu
 
-def each_drawing_in_list(number,drawing_name,url):
+def each_file_in_list(number,file_name,url):
     template =  {
             "type": "box",
             "layout": "horizontal",
@@ -16,7 +14,7 @@ def each_drawing_in_list(number,drawing_name,url):
                 "type": "button",
                 "action": {
                 "type": "uri",
-                "label": drawing_name,
+                "label": file_name,
                 "uri": url
                 },
                 "flex": 10
@@ -26,7 +24,7 @@ def each_drawing_in_list(number,drawing_name,url):
     return template
 
 ## create Column by name and its content
-def each_Column_in_carousel(column_name,content): ## ชื่อของเมนู กับ content คือ list ของeach drawing in list
+def each_Column_in_carousel(column_name,content): ## ชื่อของเมนู กับ content คือ list ของeach file in list
     template = {
         "type": "bubble",
         "direction": "ltr",

@@ -10,8 +10,12 @@ current_project = 'diseno-test-project'
 app = Flask(__name__)
 db = SQLAlchemy(app)
 
+from Project.GDRIVE_API.connect import create_connection
+from Project.GDRIVE_API.Download import Transfer_file_to_Gdrive
+
+
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, '{}.sqlite'.format(current_project))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, '{}.sqlite'.format(create_connection(current_project)))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -20,22 +24,21 @@ host_name = 'https://testappbook.herokuapp.com'
 
 
 #### path to static file 
-app.config['project_dir'] = 'Project\static\Project'
-app.config['drawing_dir'] = 'Project\static\Project\{}\drawing'.format(current_project)
-app.config['payment_dir'] = 'Project\static\Project\{}\payment'.format(current_project)
-app.config['material_dir'] = 'Project\static\Project\{}\material'.format(current_project)
-app.config['approval'] = 'Project\static\Project\{}\\approval'.format(current_project)
+app.config['project_dir'] = 'Project\static'
+
 
 
 # your bot key
-line_bot_api = LineBotApi('1RfIiAbjneORMpj+sIGYx+Yi0esjdG/F/VQxyIc6/dFoCVym6hZzDrBqxpd5Ui8XFLsdzohfRuvZRU1dsCP0yaSN3Rdx7U3PeT/0kZfnkrAXrmtrclZaw0v/tA6vOe2fM93R+JvDab5xhxN/4vtGYQdB04t89/1O/w1cDnyilFU=')
-parser = WebhookParser('31d9c964d1afd080749b16d09f2f016c')
 
+bot_access_key = '1RfIiAbjneORMpj+sIGYx+Yi0esjdG/F/VQxyIc6/dFoCVym6hZzDrBqxpd5Ui8XFLsdzohfRuvZRU1dsCP0yaSN3Rdx7U3PeT/0kZfnkrAXrmtrclZaw0v/tA6vOe2fM93R+JvDab5xhxN/4vtGYQdB04t89/1O/w1cDnyilFU='
+bot_secret_key = '31d9c964d1afd080749b16d09f2f016c'
 
-if __name__ == '__main__':
-    try:
-        db.create_all()
-    except:
-        pass
+line_bot_api = LineBotApi(bot_access_key)
+parser = WebhookParser(bot_secret_key)
     
 from Project import routes
+from Project.GDRIVE_API.google_drive_api import Project_Gdrive
+
+
+    
+    

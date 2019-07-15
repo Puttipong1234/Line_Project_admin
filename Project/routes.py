@@ -4,7 +4,7 @@ import os
 import sys
 from argparse import ArgumentParser
 
-from flask import Flask, request, abort, send_from_directory
+from flask import Flask, request, abort
 
 from linebot.exceptions import (
     InvalidSignatureError
@@ -20,7 +20,7 @@ from Project import line_bot_api,parser
 from Project.RichMenu import menuList,postmenu
 
 ### flex content sender ####
-from Project.UI.Menu import send_flex,drawing_data
+from Project.UI.Menu import send_flex, file_data, SetMenuMessage_Object ,SetMessage_From_Database
 
 
 ## main event for line chatbot ##
@@ -43,56 +43,42 @@ def callback():
 
     for event in events:
         user_id= event.source.sender_id
-        if isinstance(event, MessageEvent):
+
+        ## change rich menu
+        # if isinstance(event, MessageEvent):
+        if isinstance(event, MessageEvent) and TextMessage is type(event.message):
             menuname = event.message.text
             postmenu(menuname,user_id)
+            if event.message.text == 'เลือก Menu : DRAWING':
+                data = SetMessage_From_Database('drawing')
+                send_flex(event.reply_token,data)
+            
+            if event.message.text == 'เลือก Menu : MATERIAL':
+                data = SetMessage_From_Database('material')
+                send_flex(event.reply_token,data)
+            
+            if event.message.text == 'เลือก Menu : PAYMENT':
+                data = SetMessage_From_Database('payment')
+                send_flex(event.reply_token,data)
+            
+            if event.message.text == 'เลือก Menu : APPROVAL':
+                data = SetMessage_From_Database('approval')
+                send_flex(event.reply_token,data)
+            
+            if event.message.text == 'เลือก Menu : QUOTATION':
+                data = SetMessage_From_Database('quotation')
+                send_flex(event.reply_token,data)
                 
-
+        ## change rich menu
         if isinstance(event, FollowEvent):
             menuname = 'back'
             postmenu(menuname,user_id)
 
-#### กรณีเจอ message ประเภทไฟล์
-        if isinstance(event, MessageEvent) and FileMessage is type(event.message):
-            pass
-        return 'OK'
 
 
-## Send file from data base to user ##
-## drawing
-@app.route("/get-drawing/<drawing_name>")
-def get_drawing(drawing_name):
-    try :
-        return send_from_directory(app.config["drawing_dir"], filename=drawing_name, as_attachment=True)
-    except :
-        return InvalidSignatureError('Error cannot get file from directory')
 
 
-## payment
-@app.route("/get-payment/<payment_name>")
-def get_payment(payment_name):
-    try :
-        return send_from_directory(app.config["payment_dir"], filename=payment_name, as_attachment=True)
-    except :
-        return InvalidSignatureError('Error cannot get file from directory')
 
-
-## material
-@app.route("/get-material/<material_name>")
-def get_material(material_name):
-    try :
-        return send_from_directory(app.config["material_dir"], filename=material_name, as_attachment=True)
-    except :
-        return InvalidSignatureError('Error cannot get file from directory')
-
-
-## approval
-@app.route("/get-approval/<approval_name>")
-def get_approval(approval_name):
-    try :
-        return send_from_directory(app.config["approval_dir"], filename=approval_name, as_attachment=True)
-    except :
-        return InvalidSignatureError('Error cannot get file from directory')
 
 
 
