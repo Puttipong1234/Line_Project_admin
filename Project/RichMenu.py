@@ -74,7 +74,7 @@ def create_mainmenu():
     image = 'Project\static\งานนำเสนอ1\Slide1.JPG'
     nrow = 2
     ncol = 3
-    actionlist = ['project info','drawing','Today report','project staff','material and spec','admin zone']
+    actionlist = ['project info','เลือก Menu : DRAWING','Today report','project staff','เลือก Menu : MATERIAL','admin zone']
     return create_richmenu_generic(name,chatbar,image,nrow,ncol,actionlist)
 
 def create_adminmenu():
@@ -83,16 +83,16 @@ def create_adminmenu():
     image = 'Project\static\งานนำเสนอ1\Slide2.JPG'
     nrow = 2
     ncol = 3
-    actionlist = ['project status','assignment','payment','approval','quotation','back']
+    actionlist = ['project status','assignment','เลือก Menu : PAYMENT','เลือก Menu : APPROVAL','เลือก Menu : QUOTATION','back']
     return create_richmenu_generic(name,chatbar,image,nrow,ncol,actionlist)
 
 
 
 menuList = {}
 #back to menu
-menuList['back'] = 'richmenu-f588b5a8c4720da890e5495d826b4ceb'
+menuList['back'] = 'richmenu-0d0b0833d4079cd38e3af7240dcccefb'
 #direct to admin zone
-menuList['admin zone'] = 'richmenu-2c62f475b8e42c95e6721e951de677ba'
+menuList['admin zone'] = 'richmenu-490464f407355f8c1ae0d7a41f17ed4b'
 
 
 def postmenu(menuName,userId='xxx'):

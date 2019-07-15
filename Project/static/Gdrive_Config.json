@@ -1,36 +1,29 @@
 {
-   "Create_directory": "False",
-
-    "Single_Folder" : [
-        "projectinfo",
-        "todayreport"
-    ],
-
+   "Create_directory": "True",
+   "Single_Folder": [
+      "projectinfo",
+      "todayreport"
+   ],
    "Public_Folder": [
-       "projectinfo",
-       "drawing",
-       "todayreport",
-       "projectstaff",
-       "material"
+      "projectinfo",
+      "drawing",
+      "todayreport",
+      "projectstaff",
+      "material"
    ],
    "Private_Folder": [
-       "payment",
-       "approval",
-       "quotation"
+      "payment",
+      "approval",
+      "quotation"
    ],
    "List_Permission": [
-       "disenothai2b@gmail.com",
-       "Puttipong.lims@gmai.com"
-    ],
-   
-   "Subfolder":[
-       "00_AR",
-       "01_ST",
-       "02_MEP",
-       "03_ETC."
+      "disenothai2b@gmail.com",
+      "Puttipong.lims@gmai.com"
+   ],
+   "Subfolder": [
+      "00_AR",
+      "01_ST",
+      "02_MEP",
+      "03_ETC."
    ]
 }
-
-
-
-
