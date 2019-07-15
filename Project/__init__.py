@@ -11,8 +11,6 @@ app = Flask(__name__)
 db = SQLAlchemy(app)
 
 from Project.GDRIVE_API.connect import create_connection
-from Project.GDRIVE_API.Download import Transfer_file_to_Gdrive
-
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, '{}.sqlite'.format(create_connection(current_project)))

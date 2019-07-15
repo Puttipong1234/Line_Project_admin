@@ -4,7 +4,7 @@ import os
 import sys
 from argparse import ArgumentParser
 
-from flask import Flask, request, abort
+from flask import request, abort
 
 from linebot.exceptions import (
     InvalidSignatureError
