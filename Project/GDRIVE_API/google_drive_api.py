@@ -38,7 +38,7 @@ class Project_Gdrive():
 
         ### check if database create correctly
         self.SetUp_Gdrive_Directory()
-        self.Save_Json_Config()
+        
 
     ### use inside Setup_Gdrive method
                 
@@ -86,13 +86,17 @@ class Project_Gdrive():
 
     
     ### Get or Update File List in Fodler Name
-    def GetFile_FromFolderName(self,folder_name):
+    def GetFile_FromSubFolderName(self,folder_name):
         folder = Submenu.query.filter_by(name = folder_name).first()
         folder_id = folder.file_id
-        file_list = self.drive.ListFile({'q': folder_id}).GetList()
-        db.session.query(folder).delete()
-        db.session.commit()
+
+        ### remove all in folder tAable and regenerate
+        File.query.filter_by(submenu = folder).delete()
+
         all_file = []
+
+        ### append new file from Gdrive directory
+        file_list = self.drive.ListFile({'q': "'{}' in parents and trashed=false".format(folder_id)}).GetList()
         for i,_file in enumerate(file_list):
             new_file = File(name = _file['title'],uri = _file['alternateLink'],file_id = _file['id'],submenu = folder)
             db.session.commit()
@@ -172,6 +176,7 @@ class Project_Gdrive():
             self.data['Create_directory'] = "True"
         else:
             print('directory was already Create')
+        self.Save_Json_Config()
 
     
 

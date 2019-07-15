@@ -46,35 +46,38 @@ def callback():
 
         ## change rich menu
         # if isinstance(event, MessageEvent):
+
         if isinstance(event, MessageEvent) and TextMessage is type(event.message):
             menuname = event.message.text
-            postmenu(menuname,user_id)
-            if event.message.text == 'เลือก Menu : DRAWING':
+
+            print(event.message.text == 'เลือก Menu : DRAWING')
+            if menuname == 'เลือก Menu : DRAWING':
                 data = SetMessage_From_Database('drawing')
                 send_flex(event.reply_token,data)
-            
-            if event.message.text == 'เลือก Menu : MATERIAL':
+                return '200'
+            if menuname == 'เลือก Menu : MATERIAL':
                 data = SetMessage_From_Database('material')
                 send_flex(event.reply_token,data)
-            
-            if event.message.text == 'เลือก Menu : PAYMENT':
+                return '200'
+            if menuname == 'เลือก Menu : PAYMENT':
                 data = SetMessage_From_Database('payment')
                 send_flex(event.reply_token,data)
-            
-            if event.message.text == 'เลือก Menu : APPROVAL':
+                return '200'
+            if menuname == 'เลือก Menu : APPROVAL':
                 data = SetMessage_From_Database('approval')
                 send_flex(event.reply_token,data)
-            
-            if event.message.text == 'เลือก Menu : QUOTATION':
+                return '200'
+            if menuname == 'เลือก Menu : QUOTATION':
                 data = SetMessage_From_Database('quotation')
                 send_flex(event.reply_token,data)
-                
+                return '200'
+            postmenu(menuname,user_id)
         ## change rich menu
         if isinstance(event, FollowEvent):
             menuname = 'back'
             postmenu(menuname,user_id)
 
-
+    return '200'
 
 
 

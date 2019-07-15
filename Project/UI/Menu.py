@@ -11,27 +11,31 @@ from Project.GDRIVE_API.models import *
 from Project.GDRIVE_API.google_drive_api import Project_Gdrive
 
 
-def SetMenuMessage_Object(file_data,Message_data):
-    file_data['message'].append(Message_data)
+def SetMenuMessage_Object(Message_data):
+    data = file_data['messages'].append(Message_data)
     return file_data
 
 def SetMessage_From_Database(folder_name):
     _menus = Menu.query.filter_by(name = folder_name).first()
     _submenus = Submenu.query.filter_by(menu = _menus).all()
     project = Project_Gdrive()
-    all_file = project.GetFile_FromFolderName(folder_name)
+
     Columns = []
-    files = []
     for col in _submenus:
+      all_file = project.GetFile_FromSubFolderName(col.name)
+      print('get Subfolder {}'.format(col.name))
+      files = []
       for num,_file in enumerate(all_file):
+        print('get file {}'.format(_file['title']))
         num = num + 1
         files.append(each_file_in_list(str(num),_file['title'],_file['alternateLink']))
         print(num,_file['title'],_file['alternateLink'])
       #### foldername or column name col['alternateLink']
-      result = each_Column_in_carousel(folder_name,col['alternateLink'],files)
+      result = each_Column_in_carousel(col.name,col.uri,files)
       Columns.append(result)
+      
     Carousel_message = Carousel_menu(Columns)
-    message = SetMenuMessage_Object(files,Carousel_message)
+    message = SetMenuMessage_Object(Carousel_message)
     return message
     ### return message_carousel_data to send flex
 
@@ -52,7 +56,6 @@ def send_flex(reply_token,file_data):
     file_data['replyToken'] = reply_token
     #### dumps file จาก dict ให้เป็น json
     file_data = json.dumps(file_data)
-
     r = requests.post(LINE_API, headers=headers, data=file_data) # ส่งข้อมูล
 
     return print(r.text)
