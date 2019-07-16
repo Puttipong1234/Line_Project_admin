@@ -5,7 +5,7 @@ from linebot import (
 from flask_sqlalchemy import SQLAlchemy
 import os
 #### fill your current project name
-current_project = 'diseno-test-project'
+current_project = 'อาคารสำนักงาน 3 ชั้น DFTP'
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
@@ -31,6 +31,7 @@ app.config['project_dir'] = 'Project\static'
 
 bot_access_key = '1RfIiAbjneORMpj+sIGYx+Yi0esjdG/F/VQxyIc6/dFoCVym6hZzDrBqxpd5Ui8XFLsdzohfRuvZRU1dsCP0yaSN3Rdx7U3PeT/0kZfnkrAXrmtrclZaw0v/tA6vOe2fM93R+JvDab5xhxN/4vtGYQdB04t89/1O/w1cDnyilFU='
 bot_secret_key = '31d9c964d1afd080749b16d09f2f016c'
+Line_bot_user_id = 'U042efaa5d86781452e91ade57ed5d46d'
 
 line_bot_api = LineBotApi(bot_access_key)
 parser = WebhookParser(bot_secret_key)

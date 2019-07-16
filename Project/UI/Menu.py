@@ -3,7 +3,7 @@ file_data = {"replyToken":'', "messages": []}
 
 import json
 import requests
-from Project.UI.Flex_Template import each_file_in_list , each_Column_in_carousel , Carousel_menu
+from Project.UI.Flex_Template import *
 from Project import app
 import os
 from Project import db , bot_access_key
@@ -39,6 +39,10 @@ def SetMessage_From_Database(folder_name):
     return message
     ### return message_carousel_data to send flex
 
+def SetSingleColumnMenu(contents_as_dict):
+      data = Single_Column_Template(contents_as_dict)
+      message = SetMenuMessage_Object(data)
+      return message
 
 
 

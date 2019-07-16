@@ -68,31 +68,40 @@ def create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,ActionList):
 #     textList = ['เมนูหลัก','บอทน้อยส่วนตัว','ผองเพื่อนบอทน้อย','http://line://msg/text/?']
 #     return create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,textList)
 
+# def create_mainmenu():
+#     name = 'เมนูหลัก'
+#     chatbar = 'เมนูหลัก'
+#     image = 'Project\static\งานนำเสนอ1\Slide1.JPG'
+#     nrow = 2
+#     ncol = 3
+#     actionlist = ['project info','เลือก Menu : DRAWING','Today report','project staff','เลือก Menu : MATERIAL','admin zone']
+#     return create_richmenu_generic(name,chatbar,image,nrow,ncol,actionlist)
+
 def create_mainmenu():
     name = 'เมนูหลัก'
     chatbar = 'เมนูหลัก'
-    image = 'Project\static\งานนำเสนอ1\Slide1.JPG'
+    image = 'Project\static\งานนำเสนอ1\Slide2.JPG'
     nrow = 2
     ncol = 3
-    actionlist = ['project info','เลือก Menu : DRAWING','Today report','project staff','เลือก Menu : MATERIAL','admin zone']
+    actionlist = ['เลือก Menu : 3D_MODEL','เลือก Menu : 3D_MODEL','เลือก Menu : DRAWING','เลือก Menu : 3D_MODEL','เลือก Menu : 3D_MODEL','admin zone']
     return create_richmenu_generic(name,chatbar,image,nrow,ncol,actionlist)
 
 def create_adminmenu():
     name = 'จัดการข้อมูล'
     chatbar = 'เมนูผู้บริหาร'
-    image = 'Project\static\งานนำเสนอ1\Slide2.JPG'
+    image = 'Project\static\งานนำเสนอ1\Slide3.JPG'
     nrow = 2
     ncol = 3
-    actionlist = ['project status','assignment','เลือก Menu : PAYMENT','เลือก Menu : APPROVAL','เลือก Menu : QUOTATION','back']
+    actionlist = ['เลือก Menu : PROJECT STATUS','เลือก Menu : STAFF','เลือก Menu : PAYMENT','เลือก Menu : APPROVAL','เลือก Menu : QUOTATION','back']
     return create_richmenu_generic(name,chatbar,image,nrow,ncol,actionlist)
 
 
 
 menuList = {}
 #back to menu
-menuList['back'] = 'richmenu-0d0b0833d4079cd38e3af7240dcccefb'
+menuList['back'] = 'richmenu-15c7d10357c28fa41eb0a9b58702c274'
 #direct to admin zone
-menuList['admin zone'] = 'richmenu-490464f407355f8c1ae0d7a41f17ed4b'
+menuList['admin zone'] = 'richmenu-a254d75a1420f5896df64c900592d6bd'
 
 
 def postmenu(menuName,userId='xxx'):

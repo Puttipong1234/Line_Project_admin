@@ -11,16 +11,16 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FileMessage , ImageMessage , FollowEvent ,sources,FollowEvent,SendMessage
-,FlexSendMessage
+,FlexSendMessage , JoinEvent , QuickReply , QuickReplyButton , MessageAction , URIAction
 )
 
 
-from Project import app
+from Project import app , Line_bot_user_id , current_project
 from Project import line_bot_api,parser
 from Project.RichMenu import menuList,postmenu
 
 ### flex content sender ####
-from Project.UI.Menu import send_flex, file_data, SetMenuMessage_Object ,SetMessage_From_Database
+from Project.UI.Menu import * 
 
 
 ## main event for line chatbot ##
@@ -48,9 +48,9 @@ def callback():
         # if isinstance(event, MessageEvent):
 
         if isinstance(event, MessageEvent) and TextMessage is type(event.message):
+
             menuname = event.message.text
 
-            print(event.message.text == 'เลือก Menu : DRAWING')
             if menuname == 'เลือก Menu : DRAWING':
                 data = SetMessage_From_Database('drawing')
                 send_flex(event.reply_token,data)
@@ -71,11 +71,43 @@ def callback():
                 data = SetMessage_From_Database('quotation')
                 send_flex(event.reply_token,data)
                 return '200'
+            if menuname == 'เลือก Menu : 3D_MODEL':
+
+                contents = {
+                    'โมเดลสถาปัถ' : 'https://viewer.autodesk.com/',
+                    'โมเดลโครงสร้าง' : 'https://viewer.autodesk.com/',
+                    'โมเดลงานระบบ' : 'https://viewer.autodesk.com/',
+                    'โมเดล combine ' : 'https://viewer.autodesk.com/'
+                }
+
+
+                data = SetSingleColumnMenu(contents)
+                send_flex(event.reply_token,data)
+                return '200'
             postmenu(menuname,user_id)
         ## change rich menu
         if isinstance(event, FollowEvent):
             menuname = 'back'
             postmenu(menuname,user_id)
+            return '200'
+
+
+        ## menu ใน group chat
+        if isinstance(event,JoinEvent):
+            text_message = TextSendMessage(text='ยินดีต้องรับสู่บริการ Project Assistance โครงการ {} ยินดีรับใช้ กรุณากดปุ่มเพื่อเลือกเมนู'.format(current_project),
+                               quick_reply=QuickReply(items=[
+                                   QuickReplyButton(action=URIAction(label="ดูแบบก่อสร้างล่าสุด", uri='line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : DRAWING'))),
+                                   ##### สร้างเมนู โมเดล 3 มิติ
+                                   QuickReplyButton(action=URIAction(label="ดูโมเดล อาคาร 3 มิติ", uri='line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : 3D_MODEL'))),
+                                   QuickReplyButton(action=URIAction(label="ดูรายละเอียดวัสดุ", uri='line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : MATERIAL'))),
+                                   QuickReplyButton(action=URIAction(label="ดูเอกสาร APPROVAL", uri='line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : APPROVAL'))),
+                                   QuickReplyButton(action=URIAction(label="ดูใบเสนอราคา", uri='line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : QUOTATION'))),
+                                   QuickReplyButton(action=URIAction(label="ไปที่หน้าหลักโครงการ", uri='line://ti/p/{}'.format(Line_bot_user_id)))
+                               ]))
+            line_bot_api.reply_message(event.reply_token,text=text_message)
+            return '200'
+
+        
 
     return '200'
 

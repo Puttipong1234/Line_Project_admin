@@ -132,3 +132,33 @@ def Carousel_menu(columns):
     for i in columns:
         template['contents']['contents'].append(i)
     return template
+
+#### content = dictionary {model_name : model_link}
+def Single_Column_Template(contents):
+    template = {
+  "type": "template",
+  "altText": "this is a buttons template",
+  "template": {
+    "type": "buttons",
+    "actions": [],
+    "thumbnailImageUrl": "https://www.bim4all.com/images/site/_generalImage/3D-BIM-model-BIM4ALL.png",
+    "title": "ALL MODEL",
+    "text": "แตะที่รายการเพื่อเปิดโมเดล"
+  }
+}
+
+    all_link = []
+
+
+    for key,value in contents.items(): 
+        data = {
+        "type": "uri",
+        "label": "Action 1",
+        "uri": "www.facebook.com"
+      }
+        data['label'] = key
+        data['uri'] = value
+
+        template['template']['actions'].append(data)
+
+    return template
