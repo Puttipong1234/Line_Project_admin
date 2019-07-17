@@ -18,12 +18,12 @@
    ],
    "List_Permission": [
       "disenothai2b@gmail.com",
-      "Puttipong.lims@gmai.com"
+      "puttipong.lims@gmai.com"
    ],
    "Subfolder": [
-      "00_AR",
-      "01_ST",
-      "02_MEP",
-      "03_ETC."
+      "1.AR",
+      "2.ST",
+      "3.MEP",
+      "4.ETC"
    ]
 }

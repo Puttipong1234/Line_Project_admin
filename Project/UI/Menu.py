@@ -1,5 +1,3 @@
-file_data = {"replyToken":'', "messages": []}
-
 
 import json
 import requests
@@ -12,6 +10,7 @@ from Project.GDRIVE_API.google_drive_api import Project_Gdrive
 
 
 def SetMenuMessage_Object(Message_data):
+    file_data = {"replyToken":'', "messages": []}
     data = file_data['messages'].append(Message_data)
     return file_data
 
