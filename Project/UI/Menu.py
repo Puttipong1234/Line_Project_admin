@@ -15,9 +15,6 @@ from Project.UI.Quick_Reply_Schema import *
 def SetMenuMessage_Object(Message_data,Quick_Reply = False):
     file_data = {"replyToken":'', "messages": []}
     data = file_data['messages'].append(Message_data)
-    # qu = Quick_Reply_Schema()
-    # if Quick_Reply is True:
-    #       data = file_data['messages'][0]['contents']['contents']['contents'][0]['header']['contents'][0].update(qu)
     return file_data
 
 def SetMessage_From_Database(folder_name,Quick_Reply = False):
@@ -29,7 +26,7 @@ def SetMessage_From_Database(folder_name,Quick_Reply = False):
 
 
     for col in _submenus:
-      all_file = project.GetFile_FromSubFolderName(col.name)
+      all_file = project.GetFile_FromSubFolderName(col.name)[0:8]
       print('get Subfolder {}'.format(col.name))
       files = []
 
@@ -40,7 +37,7 @@ def SetMessage_From_Database(folder_name,Quick_Reply = False):
         files.append(each_file_in_list(str(num),_file['title'],_file['alternateLink']))
         print(num,_file['title'],_file['alternateLink'])
 
-        
+
       #### foldername or column name col['alternateLink']
 
 
@@ -75,4 +72,4 @@ def send_flex(reply_token,file_data):
     file_data = json.dumps(file_data)
     r = requests.post(LINE_API, headers=headers, data=file_data) # ส่งข้อมูล
 
-    return print(r.text)
+    return 200

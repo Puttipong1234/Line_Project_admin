@@ -33,7 +33,7 @@ quickReply = QuickReply(items=[
 
 
 ## main event for line chatbot ##
-@app.route("/", methods=['POST'])
+@app.route("/", methods=['POST','GET'])
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']

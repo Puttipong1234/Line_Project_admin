@@ -86,34 +86,57 @@ def each_Column_in_carousel(column_name,folder_link,content): ## ชื่อข
         ]
         },
         
+        # "footer": {
+        # "type": "box",
+        # "layout": "horizontal",
+        # "contents": [
+        #     {
+        #     "type": "button",
+        #     "action": {
+        #         "type": "uri",
+        #         "label": "UPLOAD",
+        #         "uri": folder_link
+        #     },
+        #     "flex": 5,
+        #     "style": "primary"
+        #     },
+        #     {
+        #     "type": "button",
+        #     "action": {
+        #         "type": "uri",
+        #         "label": "DEL",
+        #         "uri": folder_link
+        #     },
+        #     "flex": 0,
+        #     "color": "#FF0000",
+        #     "margin": "lg",
+        #     "style": "primary"
+        #     }
+        # ]
+        # }
         "footer": {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-            {
-            "type": "button",
-            "action": {
-                "type": "uri",
-                "label": "UPLOAD",
-                "uri": folder_link
-            },
-            "flex": 5,
-            "style": "primary"
-            },
-            {
-            "type": "button",
-            "action": {
-                "type": "uri",
-                "label": "DEL",
-                "uri": folder_link
-            },
-            "flex": 0,
-            "color": "#FF0000",
-            "margin": "lg",
-            "style": "primary"
-            }
-        ]
-        },
+      "type": "box",
+      "layout": "horizontal",
+      "contents": [
+        {
+          "type": "button",
+          "action": {
+            "type": "uri",
+            "label": "view more",
+            "uri": folder_link
+          },
+          "color": "#0822FF",
+          "margin": "lg",
+          "style": "link"
+        }
+      ]
+    },
+    "styles": {
+      "header": {
+        "backgroundColor": "#323232"
+      }
+    }
+        ,
         "styles": {
         "header": {
             "backgroundColor": "#323232"
@@ -142,7 +165,7 @@ def Carousel_menu(columns):
     template.update(q)
     for i in columns:
         template['contents']['contents'].append(i)
-    print(template)
+
     return template
 
 #### content = dictionary {model_name : model_link}

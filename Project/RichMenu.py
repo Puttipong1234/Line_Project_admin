@@ -34,6 +34,9 @@ def create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,ActionList):
                 if actionComp.find('://')!=-1:
                     rAction.type = 'uri'
                     rAction.uri = actionComp
+                elif actionComp.find('tel:')!=-1:
+                    rAction.type = 'uri'
+                    rAction.uri = actionComp
                 else:
                     rAction.type = 'message'
                     rAction.text = actionComp
@@ -81,10 +84,10 @@ def create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,ActionList):
 def create_mainmenu():
     name = 'เมนูหลัก'
     chatbar = 'เมนูหลัก'
-    image = 'Project\static\งานนำเสนอ1\Slide2.JPG'
+    image = 'Project\static\งานนำเสนอ1\งานนำเสนอ1.jpg'
     nrow = 2
     ncol = 3
-    actionlist = ['เลือก Menu : 3D_MODEL','เลือก Menu : 3D_MODEL','เลือก Menu : DRAWING','เลือก Menu : 3D_MODEL','เลือก Menu : 3D_MODEL','admin zone']
+    actionlist = ['เลือก Menu : 3D_MODEL','เลือก Menu : 3D_MODEL','เลือก Menu : DRAWING','tel:+66-84-449-6777','tel:+66-84-449-6777','admin zone']
     return create_richmenu_generic(name,chatbar,image,nrow,ncol,actionlist)
 
 def create_adminmenu():
@@ -100,9 +103,9 @@ def create_adminmenu():
 
 menuList = {}
 #back to menu
-menuList['back'] = 'richmenu-15c7d10357c28fa41eb0a9b58702c274'
+menuList['back'] = 'richmenu-0405435ed7c85983704ea60d864ac7cb'
 #direct to admin zone
-menuList['admin zone'] = 'richmenu-a254d75a1420f5896df64c900592d6bd'
+menuList['admin zone'] = 'richmenu-018ef789cf51a1ce073b4223a00617bf'
 
 
 def postmenu(menuName,userId='xxx'):
