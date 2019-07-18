@@ -23,6 +23,15 @@ from Project.RichMenu import menuList,postmenu
 from Project.UI.Menu import * 
 
 
+quickReply = QuickReply(items=[
+                                        QuickReplyButton(action=MessageAction(label="ดูโมเดลอาคาร 3 มิติ", text='เลือก Menu : 3D_MODEL')),
+                                        QuickReplyButton(action=MessageAction(label="ดูแบบก่อสร้างล่าสุด", text='เลือก Menu : DRAWING')),
+                                        QuickReplyButton(action=MessageAction(label="ดูใบเสนอราคา", text='เลือก Menu : QUOTATION')),
+                                        QuickReplyButton(action=MessageAction(label="ดูเอกสาร APPROVAL", text='เลือก Menu : APPROVAL'))
+                                ])
+
+
+
 ## main event for line chatbot ##
 @app.route("/", methods=['POST'])
 def callback():
@@ -55,27 +64,26 @@ def callback():
                 data = SetMessage_From_Database('drawing',Quick_Reply= True)
                 send_flex(event.reply_token,data)
                 return '200'
-            if menuname == 'เลือก Menu : MATERIAL':
+            elif menuname == 'เลือก Menu : MATERIAL':
                 data = SetMessage_From_Database('material',Quick_Reply= True)
                 send_flex(event.reply_token,data)
                 return '200'
-            if menuname == 'เลือก Menu : PAYMENT':
+            elif menuname == 'เลือก Menu : PAYMENT':
                 data = SetMessage_From_Database('payment',Quick_Reply= True)
                 send_flex(event.reply_token,data)
                 return '200'
-            if menuname == 'เลือก Menu : APPROVAL':
+            elif menuname == 'เลือก Menu : APPROVAL':
                 data = SetMessage_From_Database('approval',Quick_Reply= True)
                 send_flex(event.reply_token,data)
                 return '200'
-            if menuname == 'เลือก Menu : QUOTATION':
+            elif menuname == 'เลือก Menu : QUOTATION':
                 data = SetMessage_From_Database('quotation',Quick_Reply= True)
-                print(data)
                 send_flex(event.reply_token,data)
                 return '200'
-            if menuname == 'เลือก Menu : 3D_MODEL':
+            elif menuname == 'เลือก Menu : 3D_MODEL':
 
                 contents = {
-                    'โมเดลสถาปัถ' : 'https://viewer.autodesk.com/',
+                    'โมเดลสถาปัต' : 'https://viewer.autodesk.com/',
                     'โมเดลโครงสร้าง' : 'https://viewer.autodesk.com/',
                     'โมเดลงานระบบ' : 'https://viewer.autodesk.com/',
                     'โมเดล combine ' : 'https://viewer.autodesk.com/'
@@ -85,6 +93,12 @@ def callback():
                 data = SetSingleColumnMenu(contents)
                 send_flex(event.reply_token,data)
                 return '200'
+            
+            elif 'ขอแบบ' in menuname or 'เอกสาร' in menuname or 'ข้อมูล' in menuname :
+                Button_Reply = TextSendMessage(text=''.format(current_project),
+                               quick_reply=quickReply)
+                line_bot_api.reply_message(event.reply_token,messages = Button_Reply)
+
             postmenu(menuname,user_id)
         ## change rich menu
         if isinstance(event, FollowEvent):
@@ -96,15 +110,11 @@ def callback():
         if isinstance(event,JoinEvent):
             print('line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : DRAWING'))
             print('line://ti/p/{}'.format(Line_bot_user_id))
-            quickReply = QuickReply(items=[
-                                        QuickReplyButton(action=MessageAction(label="ดูโมเดลอาคาร 3 มิติ", text='เลือก Menu : 3D_MODEL')),
-                                        QuickReplyButton(action=MessageAction(label="ดูแบบก่อสร้างล่าสุด", text='เลือก Menu : DRAWING')),
-                                        QuickReplyButton(action=MessageAction(label="ดูใบเสนอราคา", text='เลือก Menu : QUOTATION')),
-                                        QuickReplyButton(action=MessageAction(label="ดูเอกสาร APPROVAL", text='เลือก Menu : APPROVAL'))
-                                ])
+            
             Button_Reply = TextSendMessage(text='ยินดีต้องรับสู่บริการ Project Assistance โครงการ {} ยินดีรับใช้ กรุณากดปุ่มเพื่อเลือกเมนู'.format(current_project),
                                quick_reply=quickReply)
             line_bot_api.reply_message(event.reply_token,messages = Button_Reply)
+            
             return '200'
         
     return '200'

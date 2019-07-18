@@ -3,7 +3,7 @@ from pydrive.files import GoogleDriveFile
 from pydrive.auth import GoogleAuth
 import json
 from .models import Menu , Submenu , File
-from Project import db , app
+from Project import db , app , basedir
 import os
 ### requirement 
 # - need file Gdrive_Config
@@ -16,7 +16,7 @@ class Project_Gdrive():
 
     def __init__(self,Project_name = 'default'):
         self.data = ''
-        self.data_path = os.path.join(app.config['project_dir'],'Gdrive_Config.json')
+        self.data_path = os.path.join(basedir,app.config['project_dir'],'Gdrive_Config.json')
         with open(self.data_path,'r') as Config:
             self.data = json.load(Config)
             Config.close()

@@ -15,8 +15,9 @@ from Project.UI.Quick_Reply_Schema import *
 def SetMenuMessage_Object(Message_data,Quick_Reply = False):
     file_data = {"replyToken":'', "messages": []}
     data = file_data['messages'].append(Message_data)
-    if Quick_Reply is True:
-          file_data.update(Quick_Reply_Schema())
+    # qu = Quick_Reply_Schema()
+    # if Quick_Reply is True:
+    #       data = file_data['messages'][0]['contents']['contents']['contents'][0]['header']['contents'][0].update(qu)
     return file_data
 
 def SetMessage_From_Database(folder_name,Quick_Reply = False):
@@ -25,16 +26,24 @@ def SetMessage_From_Database(folder_name,Quick_Reply = False):
     project = Project_Gdrive()
 
     Columns = []
+
+
     for col in _submenus:
       all_file = project.GetFile_FromSubFolderName(col.name)
       print('get Subfolder {}'.format(col.name))
       files = []
+
+
       for num,_file in enumerate(all_file):
         print('get file {}'.format(_file['title']))
         num = num + 1
         files.append(each_file_in_list(str(num),_file['title'],_file['alternateLink']))
         print(num,_file['title'],_file['alternateLink'])
+
+        
       #### foldername or column name col['alternateLink']
+
+
       result = each_Column_in_carousel(col.name,col.uri,files)
       Columns.append(result)
       

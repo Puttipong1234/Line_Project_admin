@@ -1,4 +1,3 @@
-
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage, FileMessage , ImageMessage , FollowEvent ,sources,FollowEvent,SendMessage
 ,FlexSendMessage , JoinEvent , QuickReply , QuickReplyButton , MessageAction , URIAction
@@ -6,27 +5,35 @@ from linebot.models import (
 
 import json
 
-Quick_Reply = QuickReply(items=[
-                                #    QuickReplyButton(action=URIAction(label="ดูแบบก่อสร้างล่าสุด", uri='line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : DRAWING'))),
-                                #    ##### สร้างเมนู โมเดล 3 มิติ
-                                #    QuickReplyButton(action=URIAction(label="ดูโมเดล อาคาร 3 มิติ", uri='line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : 3D_MODEL'))),
-                                #    QuickReplyButton(action=URIAction(label="ดูรายละเอียดวัสดุ", uri='line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : MATERIAL'))),
-                                #    QuickReplyButton(action=URIAction(label="ดูเอกสาร APPROVAL", uri='line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : APPROVAL'))),
-                                #    QuickReplyButton(action=URIAction(label="ดูใบเสนอราคา", uri='line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : QUOTATION'))),
-                                #    QuickReplyButton(action=URIAction(label="ไปที่หน้าหลักโครงการ", uri='line://ti/p/{}'.format(Line_bot_user_id)))
-                                    QuickReplyButton(action=MessageAction(label="ดูโมเดลอาคาร 3 มิติ", text='เลือก Menu : 3D_MODEL')),
-                                    QuickReplyButton(action=MessageAction(label="ดูแบบก่อสร้างล่าสุด", text='เลือก Menu : DRAWING')),
-                                    QuickReplyButton(action=MessageAction(label="ดูใบเสนอราคา", text='เลือก Menu : QUOTATION')),
-                                    QuickReplyButton(action=MessageAction(label="ดูเอกสาร APPROVAL", text='เลือก Menu : APPROVAL'))
-                               ])
+
+def get_quickreply_template():
+    Quick_Reply = QuickReply(items=[
+                                        QuickReplyButton(action=MessageAction(label="ดูโมเดลอาคาร 3 มิติ", text='เลือก Menu : 3D_MODEL')),
+                                        QuickReplyButton(action=MessageAction(label="ดูแบบก่อสร้างล่าสุด", text='เลือก Menu : DRAWING')),
+                                        QuickReplyButton(action=MessageAction(label="ดูใบเสนอราคา", text='เลือก Menu : QUOTATION')),
+                                        QuickReplyButton(action=MessageAction(label="ดูเอกสาร APPROVAL", text='เลือก Menu : APPROVAL'))
+                                ])
+    # return Quick_Reply.__dict__
+    data = Quick_Reply.as_json_string()
+    return json.loads(data)
+
+### input lsit of quick actions
+def Quick_Reply_Schema():
+    Quick_Actions = get_quickreply_template()
+    template = {
+        "quickReply": {
+    "items": []
+    }
+    }
+    
+    template["quickReply"]["items"] = Quick_Actions['items']
+    return template
+
+data = {
+  "type": "text",
+  "text": "Select your favorite food category or send me your location!"
+}
 
 
-
-a = QuickReplyButton(action=MessageAction(label="ดูโมเดลอาคาร 3 มิติ", text='เลือก Menu : 3D_MODEL')).__dict__
-
-
-
-a = {"1" : "book" , "2" : "notebook"}
-b = {"3" : "Encyclopedia"}
-a.update(b)
-print(a)
+data.update(Quick_Reply_Schema())
+print(data)

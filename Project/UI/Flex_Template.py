@@ -1,8 +1,12 @@
 
 from Project import Project_Picture , host_name
+from Project.UI.Quick_Reply_Schema import *
 import os
 
 def each_file_in_list(number,file_name,url):
+
+    ## condition if quickreply = true
+
     template =  {
             "type": "box",
             "layout": "horizontal",
@@ -24,6 +28,8 @@ def each_file_in_list(number,file_name,url):
             }
             ]
         }
+
+
     return template
 
 ## create Column by name and its content
@@ -132,8 +138,11 @@ def Carousel_menu(columns):
     "contents": []
   }
     }
+    q = Quick_Reply_Schema()
+    template.update(q)
     for i in columns:
         template['contents']['contents'].append(i)
+    print(template)
     return template
 
 #### content = dictionary {model_name : model_link}
@@ -155,7 +164,6 @@ def Single_Column_Template(contents):
 
     
     tn = template['template']['thumbnailImageUrl'] = "{}/PIC/{}".format(host_name,Project_Picture)
-    print(tn)
     for key,value in contents.items(): 
         data = {
         "type": "uri",
