@@ -10,6 +10,7 @@ from linebot.models import *
 from linebot.models.template import *
 from Project import line_bot_api
 
+
 def create_richmenu_generic(mname,mchatbar,mimage,nrow,ncol,ActionList):
     rich_menu = RichMenu()
     height = 1686

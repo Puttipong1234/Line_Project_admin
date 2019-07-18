@@ -7,8 +7,11 @@ import os
 from Project import db , bot_access_key
 from Project.GDRIVE_API.models import *
 from Project.GDRIVE_API.google_drive_api import Project_Gdrive
+from Project.UI.Quick_Reply_Schema import *
 
 
+
+### need to append quick reply on this method 
 def SetMenuMessage_Object(Message_data):
     file_data = {"replyToken":'', "messages": []}
     data = file_data['messages'].append(Message_data)
