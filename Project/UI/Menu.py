@@ -12,12 +12,14 @@ from Project.UI.Quick_Reply_Schema import *
 
 
 ### need to append quick reply on this method 
-def SetMenuMessage_Object(Message_data):
+def SetMenuMessage_Object(Message_data,Quick_Reply = False):
     file_data = {"replyToken":'', "messages": []}
     data = file_data['messages'].append(Message_data)
+    if Quick_Reply is True:
+          file_data.update(Quick_Reply_Schema())
     return file_data
 
-def SetMessage_From_Database(folder_name):
+def SetMessage_From_Database(folder_name,Quick_Reply = False):
     _menus = Menu.query.filter_by(name = folder_name).first()
     _submenus = Submenu.query.filter_by(menu = _menus).all()
     project = Project_Gdrive()
@@ -37,7 +39,7 @@ def SetMessage_From_Database(folder_name):
       Columns.append(result)
       
     Carousel_message = Carousel_menu(Columns)
-    message = SetMenuMessage_Object(Carousel_message)
+    message = SetMenuMessage_Object(Carousel_message,Quick_Reply)
     return message
     ### return message_carousel_data to send flex
 

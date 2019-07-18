@@ -4,7 +4,7 @@ import os
 import sys
 from argparse import ArgumentParser
 
-from flask import request, abort
+from flask import request, abort , send_from_directory
 
 from linebot.exceptions import (
     InvalidSignatureError
@@ -15,7 +15,7 @@ from linebot.models import (
 )
 
 
-from Project import app , Line_bot_user_id , current_project
+from Project import app , Line_bot_user_id , current_project , Project_Picture
 from Project import line_bot_api,parser
 from Project.RichMenu import menuList,postmenu
 
@@ -52,23 +52,23 @@ def callback():
             
             print(event.type)
             if menuname == 'เลือก Menu : DRAWING':
-                data = SetMessage_From_Database('drawing')
+                data = SetMessage_From_Database('drawing',Quick_Reply= True)
                 send_flex(event.reply_token,data)
                 return '200'
             if menuname == 'เลือก Menu : MATERIAL':
-                data = SetMessage_From_Database('material')
+                data = SetMessage_From_Database('material',Quick_Reply= True)
                 send_flex(event.reply_token,data)
                 return '200'
             if menuname == 'เลือก Menu : PAYMENT':
-                data = SetMessage_From_Database('payment')
+                data = SetMessage_From_Database('payment',Quick_Reply= True)
                 send_flex(event.reply_token,data)
                 return '200'
             if menuname == 'เลือก Menu : APPROVAL':
-                data = SetMessage_From_Database('approval')
+                data = SetMessage_From_Database('approval',Quick_Reply= True)
                 send_flex(event.reply_token,data)
                 return '200'
             if menuname == 'เลือก Menu : QUOTATION':
-                data = SetMessage_From_Database('quotation')
+                data = SetMessage_From_Database('quotation',Quick_Reply= True)
                 print(data)
                 send_flex(event.reply_token,data)
                 return '200'
@@ -96,21 +96,37 @@ def callback():
         if isinstance(event,JoinEvent):
             print('line://oaMessage/{}/?{}'.format(Line_bot_user_id,'เลือก Menu : DRAWING'))
             print('line://ti/p/{}'.format(Line_bot_user_id))
+            quickReply = QuickReply(items=[
+                                        QuickReplyButton(action=MessageAction(label="ดูโมเดลอาคาร 3 มิติ", text='เลือก Menu : 3D_MODEL')),
+                                        QuickReplyButton(action=MessageAction(label="ดูแบบก่อสร้างล่าสุด", text='เลือก Menu : DRAWING')),
+                                        QuickReplyButton(action=MessageAction(label="ดูใบเสนอราคา", text='เลือก Menu : QUOTATION')),
+                                        QuickReplyButton(action=MessageAction(label="ดูเอกสาร APPROVAL", text='เลือก Menu : APPROVAL'))
+                                ])
             Button_Reply = TextSendMessage(text='ยินดีต้องรับสู่บริการ Project Assistance โครงการ {} ยินดีรับใช้ กรุณากดปุ่มเพื่อเลือกเมนู'.format(current_project),
-                               quick_reply=Quick_Reply)
+                               quick_reply=quickReply)
             line_bot_api.reply_message(event.reply_token,messages = Button_Reply)
             return '200'
-        
-        else :
-            Button_Reply = TextSendMessage(text='ยินดีต้องรับสู่บริการ Project Assistance โครงการ {} ยินดีรับใช้ กรุณากดปุ่มเพื่อเลือกเมนู'.format(current_project),
-                               quick_reply=Quick_Reply)
-            line_bot_api.reply_message(event.reply_token,messages = Button_Reply)
         
     return '200'
 
 
+# @app.route('/PIC/<filename>')
+# def return_pic(filename):
+
+#     """ Show just the image specified.
+    
+#     """
+#     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+#     UPLOAD_DIR = os.path.join(BASE_DIR, 'PIC')
+#     filename = Project_Picture
+#     return send_from_directory(app.config['project_dir'], filename)
 
 
+# host project image
+@app.route('/PIC/<filename>')
+def return_Pic(filename):
+    filename = Project_Picture
+    return send_from_directory('static',filename)
 
 
 

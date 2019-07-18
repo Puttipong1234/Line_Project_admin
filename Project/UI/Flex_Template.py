@@ -1,4 +1,7 @@
 
+from Project import Project_Picture , host_name
+import os
+
 def each_file_in_list(number,file_name,url):
     template =  {
             "type": "box",
@@ -141,6 +144,41 @@ def Single_Column_Template(contents):
   "template": {
     "type": "buttons",
     "actions": [],
+    ##### เปลี่ยนรูปโปรเจค
+    "thumbnailImageUrl": "",
+    "title": "ALL MODEL",
+    "text": "แตะที่รายการเพื่อเปิดโมเดล"
+  }
+}
+
+    all_link = []
+
+    
+    tn = template['template']['thumbnailImageUrl'] = "{}/PIC/{}".format(host_name,Project_Picture)
+    print(tn)
+    for key,value in contents.items(): 
+        data = {
+        "type": "uri",
+        "label": "Action 1",
+        "uri": "www.facebook.com"
+      }
+        data['label'] = key
+        data['uri'] = value
+
+        template['template']['actions'].append(data)
+
+    return template
+
+
+
+#### Greeting Menu 
+def Greeting_Menu_Template(contents):
+    template = {
+  "type": "template",
+  "altText": "this is a buttons template",
+  "template": {
+    "type": "buttons",
+    "actions": [],
     "thumbnailImageUrl": "https://www.bim4all.com/images/site/_generalImage/3D-BIM-model-BIM4ALL.png",
     "title": "ALL MODEL",
     "text": "แตะที่รายการเพื่อเปิดโมเดล"
@@ -162,3 +200,7 @@ def Single_Column_Template(contents):
         template['template']['actions'].append(data)
 
     return template
+
+
+
+        

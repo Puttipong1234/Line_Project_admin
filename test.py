@@ -26,4 +26,7 @@ a = QuickReplyButton(action=MessageAction(label="ดูโมเดลอาค�
 
 
 
-print(a['type'])
+a = {"1" : "book" , "2" : "notebook"}
+b = {"3" : "Encyclopedia"}
+a.update(b)
+print(a)
