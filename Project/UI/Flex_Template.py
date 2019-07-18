@@ -159,6 +159,8 @@ def Single_Column_Template(contents):
     "text": "แตะที่รายการเพื่อเปิดโมเดล"
   }
 }
+    q = Quick_Reply_Schema()
+    template.update(q)
 
     all_link = []
 
