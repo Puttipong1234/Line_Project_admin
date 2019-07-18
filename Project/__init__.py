@@ -18,8 +18,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 #### must be initialize current project ####
-# host_name = 'https://testappbook.herokuapp.com'  for heroku
-host_name = 'https://e560fb4c.ngrok.io'
+host_name = 'https://testappbook.herokuapp.com' ##  for heroku
+# host_name = 'https://e560fb4c.ngrok.io'  ##  for ngrok
 Project_Picture = 'Project_pic.JPG'
 
 
