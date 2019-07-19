@@ -24,11 +24,11 @@ from Project.UI.Menu import *
 
 
 quickReply = QuickReply(items=[
-                                        QuickReplyButton(action=MessageAction(label="ดูโมเดลอาคาร 3 มิติ", text='เลือก Menu : 3D_MODEL')),
-                                        QuickReplyButton(action=MessageAction(label="ดูแบบก่อสร้างล่าสุด", text='เลือก Menu : DRAWING')),
-                                        QuickReplyButton(action=MessageAction(label="ดูใบเสนอราคา", text='เลือก Menu : QUOTATION')),
-                                        QuickReplyButton(action=MessageAction(label="ดูเอกสาร APPROVAL", text='เลือก Menu : APPROVAL'))
-                                ])
+    QuickReplyButton(action=MessageAction(label="ดูโมเดลอาคาร 3 มิติ", text='เลือก Menu : 3D_MODEL')),
+    QuickReplyButton(action=MessageAction(label="ดูแบบก่อสร้างล่าสุด", text='เลือก Menu : DRAWING')),
+    QuickReplyButton(action=MessageAction(label="ดูใบเสนอราคา", text='เลือก Menu : QUOTATION')),
+    QuickReplyButton(action=MessageAction(label="ดูเอกสาร APPROVAL", text='เลือก Menu : APPROVAL'))
+    ])
 
 
 Command_list = ['ขอแบบ','ขอเอกสาร','ขอข้อมูล','ขอโมเดล','ขอรายการ']
@@ -90,10 +90,8 @@ def callback():
             elif menuname == 'เลือก Menu : 3D_MODEL':
 
                 contents = {
-                    'โมเดลสถาปัต' : 'https://viewer.autodesk.com/',
-                    'โมเดลโครงสร้าง' : 'https://viewer.autodesk.com/',
-                    'โมเดลงานระบบ' : 'https://viewer.autodesk.com/',
-                    'โมเดล combine ' : 'https://viewer.autodesk.com/'
+                    'อาคาร 1' : 'https://viewer.autodesk.com/id/dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YTM2MHZpZXdlci90NjM2OTkxMjMxNjk0NjgwODY5XzZhZjlkMmJlLTZkMTEtNDhhYy05OWM4LTc4NThmNzMyNWU1My5ydnQ?designtype=rvt&sheetId=NDIyMGU3YjEtYTQ5NC1hMDEwLTVmNDItY2QzMDk1MGM1MTc1',
+                    'อาคาร 2' : 'https://viewer.autodesk.com/id/dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YTM2MHZpZXdlci90NjM2OTkxMjM2MTI0NjY2OTY4X2E5Yzc0ZmNhLTJhNjgtNGIyNC1iMWYzLWNiYTE5YWE3MTJkNy5ydnQ?designtype=rvt&sheetId=NTJiNTE0YTMtMjAwNi00OTJkLTk0MTQtOTRjZmZjZTg1NDBjLTAwMDgzZDhm',
                 }
 
 
@@ -125,18 +123,6 @@ def callback():
             return '200'
         
     return '200'
-
-
-# @app.route('/PIC/<filename>')
-# def return_pic(filename):
-
-#     """ Show just the image specified.
-    
-#     """
-#     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-#     UPLOAD_DIR = os.path.join(BASE_DIR, 'PIC')
-#     filename = Project_Picture
-#     return send_from_directory(app.config['project_dir'], filename)
 
 
 # host project image
