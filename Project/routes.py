@@ -94,7 +94,7 @@ def callback():
                 send_flex(event.reply_token,data)
                 return '200'
             
-            elif 'ขอแบบ' in menuname or 'เอกสาร' in menuname or 'ข้อมูล' in menuname :
+            elif 'ขอแบบ' in menuname or 'ขอเอกสาร' in menuname or 'ขอข้อมูล' in menuname or 'หมาบี้' in menuname :
                 Button_Reply = TextSendMessage(text=''.format(current_project),
                                quick_reply=quickReply)
                 line_bot_api.reply_message(event.reply_token,messages = Button_Reply)
