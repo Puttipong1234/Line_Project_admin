@@ -31,6 +31,13 @@ quickReply = QuickReply(items=[
                                 ])
 
 
+Command_list = ['ขอแบบ','ขอเอกสาร','ขอข้อมูล','ขอโมเดล','ขอรายการ']
+def Check_command(menuname):
+    for i in Command_list:
+        if i in menuname:
+            return True
+
+
 
 ## main event for line chatbot ##
 @app.route("/", methods=['POST','GET'])
@@ -93,9 +100,9 @@ def callback():
                 data = SetSingleColumnMenu(contents)
                 send_flex(event.reply_token,data)
                 return '200'
-            
-            elif 'ขอแบบ' in menuname or 'ขอเอกสาร' in menuname or 'ขอข้อมูล' in menuname or 'หมาบี้' in menuname :
-                Button_Reply = TextSendMessage(text=''.format(current_project),
+
+            elif Check_command(menuname) :
+                Button_Reply = TextSendMessage(text='บริการเลขาอัจริยะ กรุณาเลือกเมนูเบื้องต้นที่สามารถช่วยท่านได้ หรือไปที่หน้าแรกโครงการ คลิกที่ Link >> line://ti/p/{} <<'.format(Line_bot_user_id),
                                quick_reply=quickReply)
                 line_bot_api.reply_message(event.reply_token,messages = Button_Reply)
 
